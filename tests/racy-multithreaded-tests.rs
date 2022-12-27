@@ -19,7 +19,7 @@ fn create_thread<F: FnOnce() + Send + 'static>(running: Arc<Counter>, proc: F) -
 }
 
 #[test]
-fn test_simple_wait_until() {
+fn test_simple_wait_cond() {
 	struct Foo(i8);
 
 	let running = Arc::new(Counter::new(0));
@@ -29,7 +29,7 @@ fn test_simple_wait_until() {
 	let jh = {
 		let w = w.clone();
 		create_thread(running.clone(), move || {
-			w.wait_until(|foo| foo.0 == 42);
+			w.wait_cond(|foo| foo.0 == 42);
 		})
 	};
 
@@ -56,7 +56,7 @@ fn test_multiple_waits() {
 	let jh1 = {
 		let w = w.clone();
 		create_thread(running.clone(), move || {
-			w.wait_until(|val| *val == 42);
+			w.wait_cond(|val| *val == 42);
 		})
 	};
 
@@ -66,7 +66,7 @@ fn test_multiple_waits() {
 	let jh2 = {
 		let w = w.clone();
 		create_thread(running.clone(), move || {
-			w.wait_until(|val| *val == 43);
+			w.wait_cond(|val| *val == 43);
 		})
 	};
 

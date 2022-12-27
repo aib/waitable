@@ -51,7 +51,7 @@ impl<T> Waitable<T> {
 	/// Waitable.
 	///
 	/// If `cond` initially returns `true`, no blocking is done.
-	pub fn wait_until<F: Fn(&T) -> bool>(&self, cond: F) {
+	pub fn wait_cond<F: Fn(&T) -> bool>(&self, cond: F) {
 		let mut vg = self.value.lock();
 		while !cond(&*vg) {
 			self.condvar.wait(&mut vg);
@@ -70,7 +70,7 @@ impl<T: PartialEq> Waitable<T> {
 	/// Waits until the value of the waitable equals a certain value
 	///
 	/// This function is essentially equivalent to
-	/// `wait_until(|val| val == value)`
+	/// `wait_cond(|val| val == value)`
 	pub fn wait(&self, value: &T) {
 		let mut vg = self.value.lock();
 		while &*vg != value {
