@@ -2,6 +2,14 @@
 name = "waitable"
 version = "0.1.0"
 edition = "2021"
+authors = ["Orhan \"aib\" Kavrakoglu <aibok42@gmail.com>"]
+license = "MIT"
+keywords = ["wait", "mutex", "condvar", "synchronization"]
+categories = ["concurrency"]
+homepage = "https://github.com/aib/waitable"
+repository = "https://github.com/aib/waitable"
+description = "A synchronized (atomic) value container implementing the Mutex+Condvar pattern for efficient blocking waits"
+readme = "README.md"
 
 [dependencies]
 parking_lot = "0.12.1"
