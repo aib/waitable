@@ -42,3 +42,9 @@ impl<T: PartialEq> Waitable<T> {
 		}
 	}
 }
+
+impl<T: Default> Default for Waitable<T> {
+	fn default() -> Self {
+		Self::new(T::default())
+	}
+}

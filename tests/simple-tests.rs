@@ -19,3 +19,13 @@ fn test_get_and_set_struct() {
 	w.set(Foo(-1, false));
 	assert_eq!(Foo(-1, false), w.get());
 }
+
+#[test]
+fn test_default() {
+	#[derive(Clone, Copy, Debug, PartialEq)]
+	struct Foo(i16);
+	impl Default for Foo { fn default() -> Self { Self(42) } }
+
+	let w: Waitable<Foo> = Default::default();
+	assert_eq!(Foo(42), w.get());
+}
